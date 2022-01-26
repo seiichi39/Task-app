@@ -52,6 +52,10 @@ p {
 
 /* ヘッダー */
 
+#header {
+  background-color: #008080;
+}
+
 #logo {
   float: left;
   margin-right: 10px;
@@ -64,6 +68,27 @@ p {
 }
 
 #logo:hover {
+  color: silver;
+  text-decoration: none;
+}
+
+#header-list {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+#header-list:hover {
+  color: silver;
+  text-decoration: none;
+}
+
+#dropdown-title {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #008080;
+}
+
+#dropdown-title:hover {
   color: silver;
   text-decoration: none;
 }
