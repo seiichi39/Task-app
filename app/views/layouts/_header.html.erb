@@ -9,7 +9,7 @@
           <li><%= link_to "タスク作成", '#', id: "header-list" %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle header-list" data-toggle="dropdown" id="dropdown-title" aria-expanded="true">
-              管理者 <b class="caret"></b>
+              <%= @user.name %> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
               <li><%= link_to "プロフィール", current_user %></li>
