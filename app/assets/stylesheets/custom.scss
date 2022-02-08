@@ -93,6 +93,17 @@ p {
   text-decoration: none;
 }
 
+/* トップページ */
+
+#top-main {
+  background-color: #FFFFFF00;
+}
+
+#top-main-title {
+  font-weight: bold;
+  font-style: italic;
+}
+
 /* デバッグウインドウ */
 
 .debug_dump {
