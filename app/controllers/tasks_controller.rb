@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_user
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_new_task, only: [:new, :create]
+  before_action :set_edit_task, only: [:show, :edit, :destroy]
 
   def new
   end
   
   def create
-    @task = Task.new(task_params)
     if @task.save
       flash[:success] = 'タスクを新規作成しました'
       redirect_to user_tasks_url
@@ -26,7 +26,8 @@ class TasksController < ApplicationController
   end
   
   def update
-    if @task.update(task_params)
+    @task = Task.find(params[:id])
+    if @task.update(task_params2)
       flash[:success] = "タスクを更新しました"
       redirect_to user_task_url(@user,@task)
     else
@@ -46,12 +47,20 @@ class TasksController < ApplicationController
       @user = User.find(params[:user_id])
     end
     
-    def set_task
-      @task = User.find(@user.id).tasks.find(params[:id])
+    def set_new_task
+      @task = Task.new(task_params1) 
     end
     
-    def task_params
+    def set_edit_task
+      @task = User.find(@user.id).tasks.find(params[:id])
+    end
+
+    def task_params1
       params.permit(:name, :description, :user_id)
+    end
+    
+    def task_params2
+      params.require(:task).permit(:name, :description, :user_id)
     end
   
 end

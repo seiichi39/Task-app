@@ -5,6 +5,7 @@
     <h1 class="form-heading">タスク新規作成</h1>
     
     <%= form_with(model: @task, local: true, url: user_tasks_path) do |f| %>
+      <%= render 'shared/error_messages', object: @task %>
       
       <%= f.label :名称, class: "label-login" %>
       <%= f.text_field :name, class: "form-control" %>
