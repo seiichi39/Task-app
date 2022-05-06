@@ -1,0 +1,28 @@
+<% provide(:title, 'Users') %>
+
+<div class="container">
+  <h1>利用者一覧</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <table class="table table-hover" id="table-tasks">
+      <thead>
+        <tr>
+          <th>名称</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, user_path(user.id) %></td>
+            <td>
+              <%= link_to "削除", user_path(user.id), method: :delete,
+              data: { confirm: " 「#{user.name}」を削除します。よろしいでしょうか？" }, class: "btn btn-danger btn-sm pull-right" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
