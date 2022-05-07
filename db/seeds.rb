@@ -3,13 +3,17 @@
 User.create!( name: "管理者",
               email: "sample@email.com",
               password: "password",
-              password_confirmation: "password")
+              password_confirmation: "password",
+              priv_type: "管理者")
               
-User.create!( name: "ナンバーワン",
-              email: "sample1@email.com",
-              password: "password",
-              password_confirmation: "password")
-              
-Task.create!( name: "テスト１",
-              description: "詳細テスト１",
-              user_id: "1")
+100.times do |n|
+  name  = Faker::Name.name
+  email = "sample-#{n+1}@email.com"
+  password = "password"
+  priv_type = "一般"
+  User.create!(name: name,
+               email: email,
+               password: password,
+               password_confirmation: password,
+               priv_type: "一般")
+end
