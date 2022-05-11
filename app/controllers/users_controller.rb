@@ -49,7 +49,8 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
-    
+
+    # ログイン済みのユーザーであるか確認する。    
     def logged_in_user
       unless logged_in?
         flash[:danger] = "ログインしてください。"
@@ -57,6 +58,7 @@ class UsersController < ApplicationController
       end
     end
     
+    #ログインユーザーのIDからユーザー情報を取得する。
     def set_current_user
       @user = User.find(current_user.id)       
     end
