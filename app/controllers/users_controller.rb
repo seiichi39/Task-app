@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
-  before_action :current_user2, only: [:edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_current_user, only: [:index]  
-  
+  before_action :logged_in_user, only: [:show, :index, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: [:index]
+  before_action :admin_or_correct_user, only: [:show]
+
   def show
   end
 
@@ -62,16 +64,20 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     end
-    
-    #アクセスしたユーザーが現在ログインしているユーザーか確認する。
-    def current_user2
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless @user == current_user
-    end
-    
+
     #ログインユーザーのIDからユーザー情報を取得する。
     def set_current_user
       @user = User.find(current_user.id)       
+    end
+    
+    #アクセスしたユーザーが現在ログインしているユーザーか確認する。
+    def correct_user
+      redirect_to(root_url) unless current_user?(@user)
+    end
+    
+    #システム管理権限所有かどうか判定する。
+    def admin_user
+      redirect_to root_url unless current_user.admin?
     end
     
     #管理者権限、または現在ログインしているユーザーを許可する。

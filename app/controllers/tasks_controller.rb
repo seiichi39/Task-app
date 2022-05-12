@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_user
   before_action :set_new_task, only: [:new, :create]
   before_action :set_edit_task, only: [:show, :edit, :destroy]
+  before_action :correct_user, only: [:new, :create, :index, :show, :edit, :update, :destroy]  
 
   def new
   end
@@ -61,6 +62,10 @@ class TasksController < ApplicationController
     
     def task_params2
       params.require(:task).permit(:name, :description, :user_id)
+    end
+    
+    def correct_user
+      redirect_to(root_url) unless current_user?(@user)
     end
   
 end
