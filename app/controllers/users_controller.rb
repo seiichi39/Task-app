@@ -74,4 +74,12 @@ class UsersController < ApplicationController
       @user = User.find(current_user.id)       
     end
     
+    #管理者権限、または現在ログインしているユーザーを許可する。
+    def admin_or_correct_user
+      @user = User.find(params[:user_id]) if @user.blank?
+      unless current_user?(@user) || current_user.admin?
+        flash[:danger] = "閲覧権限がありません。"
+        redirect_to(root_url)
+      end
+    end
 end
