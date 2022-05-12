@@ -4,7 +4,7 @@
   <div class="col-md-8 col-md-offset-2">
     <h1 class="form-heading">ユーザー情報の更新</h1>
     
-    <%= form_with(model: @user, local: true, url: user_path(current_user), method: :patch) do |f| %>
+    <%= form_with(model: @user, local: true, method: :patch) do |f| %>
       <%= render 'shared/error_messages', object: @user %>
     
       <%= f.label :name, class: "label-login" %>
