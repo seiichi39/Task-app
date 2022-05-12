@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:index]
   before_action :admin_or_correct_user, only: [:show]
+  before_action :admin_or_non_correct_user, only: [:new]
 
   def show
   end
@@ -88,4 +89,12 @@ class UsersController < ApplicationController
         redirect_to(root_url)
       end
     end
+    
+    #管理者権限でログインしている、またはログインしていない場合を許可する。
+    def admin_or_non_correct_user
+      unless current_user.blank? || current_user.admin?
+        redirect_to(root_url)
+      end
+    end
+    
 end
