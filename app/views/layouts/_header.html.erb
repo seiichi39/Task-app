@@ -9,7 +9,7 @@
           <li><%= link_to "タスク作成", new_user_task_path(current_user), id: "header-list" %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle header-list" data-toggle="dropdown" id="dropdown-title" aria-expanded="true">
-              <%= @user.name %> <b class="caret"></b>
+              <%= current_user.name %> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
               <li class="dropdown-header">ユーザー</li>
