@@ -13,7 +13,8 @@
       <%= f.label :description, class: "label-login" %>
       <%= f.text_area :description, rows: "4", cols: "40", class: "form-control" %>
       
-      <%= f.submit "更新", class: "btn btn-primary btn-login pull-left" %>
+      <%= f.submit "更新", class: "btn btn-primary btn-login" %>
+      <%= link_to "キャンセル", user_tasks_path(current_user.id), class: "btn btn-default btn-login" %>
 
     <% end %>
   </div>
