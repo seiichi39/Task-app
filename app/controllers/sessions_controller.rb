@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :logged_in_user, only: [:new]
   
   def new
     @user = current_user
@@ -21,4 +22,15 @@ class SessionsController < ApplicationController
     flash[:success] = 'ログアウトしました。'
     redirect_to root_url
   end
+  
+  private
+  
+    # ログイン済みのユーザーであるか確認する。    
+    def logged_in_user
+      if logged_in?
+        flash[:danger] = "すでにログインしています。"
+        redirect_to user_url(current_user.id)
+      end
+    end
+  
 end
