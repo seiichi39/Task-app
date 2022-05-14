@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:index]
   before_action :admin_or_correct_user, only: [:show]
-  before_action :admin_or_non_correct_user, only: [:new]
+  before_action :admin_or_non_correct_user, only: [:new] 
 
   def show
   end
@@ -76,24 +76,32 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user?(@user)
     end
     
-    #システム管理権限所有かどうか判定する。
+    #ユーザーがログインしてない場合は、トップ画面に遷移する。
+    def non_correct_user
+      if current_user.blank?
+        redirect_to root_url
+      end
+    end    
+    
+    #システム管理権限所有かどうか判定して、トップ画面に遷移する。
     def admin_user
       redirect_to root_url unless current_user.admin?
     end
-    
+
     #管理者権限、または現在ログインしているユーザーを許可する。
     def admin_or_correct_user
       @user = User.find(params[:user_id]) if @user.blank?
       unless current_user?(@user) || current_user.admin?
-        flash[:danger] = "閲覧権限がありません。"
+        flash[:danger] = "閲覧権限がありません"
         redirect_to(root_url)
       end
     end
     
-    #管理者権限でログインしている、またはログインしていない場合を許可する。
+    #管理者権限以外でログインしている場合のみトップページに遷移させる。
     def admin_or_non_correct_user
       unless current_user.blank? || current_user.admin?
-        redirect_to(root_url)
+        flash[:success] = "すでにログインしています"
+        redirect_to user_url(current_user)
       end
     end
     
