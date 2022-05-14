@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   end
   
   def index
-    @tasks= User.find(@user.id).tasks.all
+    @tasks= User.find(@user.id).tasks.all.order(created_at: "DESC")
   end
   
   def show
